@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tungtt.flutter.flutter_template">
+    package="com.tungtt.flutter.news_feed">
    <application
-        android:label="flutter_template"
+        android:label="News Feed"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
