@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:news_feed_app/pages/app_main_page.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
 
@@ -15,6 +16,15 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter',
       theme: AppTheme().data,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('vi', ''),
+      ],
       home: const AppMainPage(),
     );
   }
