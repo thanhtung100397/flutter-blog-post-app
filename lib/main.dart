@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_feed_app/pages/app_main_page.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
 
@@ -17,6 +18,7 @@ class App extends StatelessWidget {
       title: 'Flutter',
       theme: AppTheme().data,
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
