@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:news_feed_app/commons/app_dimens.dart';
+import 'package:news_feed_app/commons/app_dimen.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:news_feed_app/utils/collection_utils.dart';
