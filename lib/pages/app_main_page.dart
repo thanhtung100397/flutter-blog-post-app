@@ -3,14 +3,14 @@ import 'package:news_feed_app/commons/app_menu.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
 import 'package:news_feed_app/widgets/app_bottom_navigation.dart';
 
-class AppMainPage extends StatefulWidget {
-  const AppMainPage({Key? key}) : super(key: key);
+class AppHomePage extends StatefulWidget {
+  const AppHomePage({Key? key}) : super(key: key);
 
   @override
-  State<AppMainPage> createState() => _AppMainPageState();
+  State<AppHomePage> createState() => _AppHomePageState();
 }
 
-class _AppMainPageState extends State<AppMainPage> {
+class _AppHomePageState extends State<AppHomePage> {
 
   @override
   Widget build(BuildContext context) {
