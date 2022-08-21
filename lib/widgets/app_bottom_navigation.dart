@@ -90,7 +90,7 @@ class _NavigationItemState extends State<NavigationItem> {
 
   Widget createLabelWidget() {
     return Container(
-        margin: const EdgeInsets.only(top: 5),
+        margin: const EdgeInsets.only(top: 2),
         child: Text(widget.label!, style: textStyle));
   }
 
