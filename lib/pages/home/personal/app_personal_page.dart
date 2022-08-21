@@ -10,26 +10,25 @@ class AppPersonalPage extends StatefulWidget {
 }
 
 class _AppPersonalPageState extends State<AppPersonalPage> {
-
   Widget personalInfoSection() {
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       color: AppColor.appMainBackground,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(AppLocalizations.of(context)!.sign_in_hint),
-          TextButton(
-            style: TextButton.styleFrom(
-              primary: Colors.white,
-              backgroundColor: AppColor.appPrimary
-            ),
-            onPressed: () {},
-            child: Text(
-                AppLocalizations.of(context)!.sign_in,
-                style: TextStyle(color: AppColor.appTextAccent)
-            ),
-          ),
+          Container(
+              margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: AppColor.appPrimary),
+                onPressed: () {},
+                child: Text(AppLocalizations.of(context)!.sign_in,
+                    style: TextStyle(color: AppColor.appTextAccent)),
+              )),
         ],
       ),
     );
@@ -60,10 +59,19 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
               leading: const Icon(Icons.history),
               title: Text(AppLocalizations.of(context)!.read_history),
               trailing: const Icon(Icons.keyboard_arrow_right),
+            ),
+            ListTile(
+              leading: const Icon(Icons.favorite),
+              title: Text(AppLocalizations.of(context)!.liked_posts),
+              trailing: const Icon(Icons.keyboard_arrow_right),
+            ),
+            ListTile(
+              leading: const Icon(Icons.feedback),
+              title: Text(AppLocalizations.of(context)!.send_feedbacks),
+              trailing: const Icon(Icons.keyboard_arrow_right),
             )
           ],
-        )
-    );
+        ));
   }
 
   @override

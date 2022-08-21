@@ -8,5 +8,7 @@
     "sign_in": "Sign in",
     "settings": "Settings",
     "followed_articles": "Followed articles",
-    "read_history": "Read history"
+    "read_history": "Read history",
+    "liked_posts": "Liked posts",
+    "send_feedbacks": "Send feedbacks"
 }

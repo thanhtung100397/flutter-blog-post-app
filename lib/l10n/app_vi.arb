@@ -8,5 +8,7 @@
     "sign_in": "Đăng nhập",
     "settings": "Thiết lập",
     "followed_articles": "Danh sách đang theo dõi",
-    "read_history": "Lịch sử bài đã đọc"
+    "read_history": "Lịch sử bài đã đọc",
+    "liked_posts": "Bài đã thích",
+    "send_feedbacks": "Gửi phản hồi"
 }
