@@ -15,14 +15,17 @@ class _AppHomePageState extends State<AppHomePage> {
   final Duration animationDuration = const Duration(milliseconds: 500);
 
   int currentPageIndex = 0;
+  Future<void>? pagerAnimateProgress;
   PageController pagerController = PageController();
 
-  void animatePagerToNewPage(int newPageIndex) {
-    pagerController.animateToPage(
+  Future<void> animatePagerToNewPage(int newPageIndex) {
+    Future<void> animateProgress = pagerController.animateToPage(
         newPageIndex,
         duration: animationDuration,
         curve: Curves.easeInOut
     );
+    pagerAnimateProgress = animateProgress;
+    return animateProgress;
   }
 
   Widget createPagerWidget(BuildContext context) {
@@ -32,9 +35,12 @@ class _AppHomePageState extends State<AppHomePage> {
           AppMenu.navigation,
           (AppMenuItem item, index) => item.widget(context)
       ),
-      onPageChanged: (index) => setState(() {
-        currentPageIndex = index;
-      }),
+      onPageChanged: (index) async {
+        await pagerAnimateProgress;
+        setState(() {
+          currentPageIndex = index;
+        });
+      },
     );
   }
 
