@@ -5,66 +5,69 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:news_feed_app/utils/collection_utils.dart';
 import 'package:news_feed_app/utils/string_utils.dart';
 
-class MenuItem {
+class NavigationItem {
   final IconData icon;
   final String? label;
   final String Function(BuildContext context)? labelIntl;
 
-  const MenuItem({
+  const NavigationItem({
     required this.icon,
     this.label,
     this.labelIntl
   });
 }
 
-class AppBottomNavigation extends StatefulWidget {
-  final List<MenuItem> items;
+class AppBottomNavigationWidget<T extends NavigationItem> extends StatefulWidget {
+  final List<T> items;
+  final int selectedIndex;
+  final Duration animationDuration;
+  final Curve animationCurve;
+  final ValueChanged<int>? onItemChanged;
 
-  const AppBottomNavigation({
+  const AppBottomNavigationWidget({
     Key? key,
     required this.items,
+    this.selectedIndex = 0,
+    this.onItemChanged,
+    this.animationDuration = const Duration(milliseconds: 600),
+    this.animationCurve = Curves.easeOutCubic,
   }) : super(key: key);
 
   @override
-  State<AppBottomNavigation> createState() => _AppBottomNavigationState();
+  State<AppBottomNavigationWidget> createState() => _AppBottomNavigationWidgetState();
 
 }
 
-class _AppBottomNavigationState extends State<AppBottomNavigation> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+class _AppBottomNavigationWidgetState extends State<AppBottomNavigationWidget> {
 
   @override
   Widget build(BuildContext context) {
     return CurvedNavigationBar(
       height: 64,
-      items: CollectionUtils.mapToList(widget.items, (MenuItem item, index) =>
-          NavigationItem(
+      items: CollectionUtils.mapToList(widget.items, (NavigationItem item, index) =>
+          NavigationItemWidget(
               icon: item.icon,
               label: item.labelIntl?.call(context) ?? item.label,
-              showLabel: _selectedIndex != index
+              showLabel: widget.selectedIndex != index
           )
       ),
-      index: _selectedIndex,
+      index: widget.selectedIndex,
+      animationDuration: widget.animationDuration,
+      animationCurve: widget.animationCurve,
       color: AppColor.appPrimaryLight,
       buttonBackgroundColor: AppColor.appPrimaryLight,
       backgroundColor: AppColor.appMainBackground,
-      onTap: _onItemTapped,
+      onTap: widget.onItemChanged,
     );
   }
 }
 
-class NavigationItem extends StatefulWidget {
+class NavigationItemWidget extends StatefulWidget {
   final IconData icon;
   final String? label;
   final bool showLabel;
 
-  const NavigationItem({
+  const NavigationItemWidget({
     Key? key,
     required this.icon,
     this.label,
@@ -73,11 +76,11 @@ class NavigationItem extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _NavigationItemState();
+    return _NavigationItemWidgetState();
   }
 }
 
-class _NavigationItemState extends State<NavigationItem> {
+class _NavigationItemWidgetState extends State<NavigationItemWidget> {
 
   final TextStyle textStyle = TextStyle(
     color: AppColor.appTextAccent,
