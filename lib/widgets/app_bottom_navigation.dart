@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_feed_app/commons/app_dimen.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -9,10 +8,12 @@ import 'package:news_feed_app/utils/string_utils.dart';
 class MenuItem {
   final IconData icon;
   final String? label;
+  final String Function(BuildContext context)? labelIntl;
 
-  MenuItem({
+  const MenuItem({
     required this.icon,
-    this.label
+    this.label,
+    this.labelIntl
   });
 }
 
@@ -21,7 +22,7 @@ class AppBottomNavigation extends StatefulWidget {
 
   const AppBottomNavigation({
     Key? key,
-    this.items = const <MenuItem>[]
+    required this.items,
   }) : super(key: key);
 
   @override
@@ -42,14 +43,13 @@ class _AppBottomNavigationState extends State<AppBottomNavigation> {
   Widget build(BuildContext context) {
     return CurvedNavigationBar(
       height: 64,
-      // items: <Widget>[
-      //   NavigationItem(icon: , label: AppLocalizations.of(context)!.articles, showLabel: _selectedIndex != 0),
-      //   NavigationItem(icon: Icons.podcasts, label: AppLocalizations.of(context)!.podcast, showLabel: _selectedIndex != 1),
-      //   NavigationItem(icon: Icons.search, label: AppLocalizations.of(context)!.search, showLabel: _selectedIndex != 2),
-      //   NavigationItem(icon: Icons.notifications, label: AppLocalizations.of(context)!.notification, showLabel: _selectedIndex != 3),
-      //   NavigationItem(icon: Icons.person, label: AppLocalizations.of(context)!.personal, showLabel: _selectedIndex != 4),
-      // ],
-      items: CollectionUtils.mapToList(widget.items, (MenuItem item, index) => NavigationItem(icon: item.icon, label: item.label, showLabel: _selectedIndex != index)),
+      items: CollectionUtils.mapToList(widget.items, (MenuItem item, index) =>
+          NavigationItem(
+              icon: item.icon,
+              label: item.labelIntl?.call(context) ?? item.label,
+              showLabel: _selectedIndex != index
+          )
+      ),
       index: _selectedIndex,
       color: AppColor.appPrimaryLight,
       buttonBackgroundColor: AppColor.appPrimaryLight,
@@ -80,9 +80,19 @@ class NavigationItem extends StatefulWidget {
 class _NavigationItemState extends State<NavigationItem> {
 
   final TextStyle textStyle = TextStyle(
-      color: AppColor.appTextAccent,
-      fontSize: AppDimens.bottomNavigationItemLabelFontSize
+    color: AppColor.appTextAccent,
+    fontSize: AppDimens.bottomNavigationItemLabelFontSize
   );
+
+  bool shouldShowLabel() {
+    return StringUtils.isNotEmpty(widget.label) && widget.showLabel;
+  }
+
+  Widget createLabelWidget() {
+    return Container(
+        margin: const EdgeInsets.only(top: 5),
+        child: Text(widget.label!, style: textStyle));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +100,7 @@ class _NavigationItemState extends State<NavigationItem> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Icon(widget.icon, color: AppColor.appTextAccent),
-        if (StringUtils.isNotEmpty(widget.label) && widget.showLabel)
-          Text(widget.label!, style: textStyle)
+        if (shouldShowLabel()) createLabelWidget()
       ]
     );
   }

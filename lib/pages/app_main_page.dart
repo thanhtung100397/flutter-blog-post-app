@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:news_feed_app/commons/app_menu.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
-
-import '../widgets/app_bottom_navigation.dart';
+import 'package:news_feed_app/widgets/app_bottom_navigation.dart';
 
 class AppMainPage extends StatefulWidget {
   const AppMainPage({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class _AppMainPageState extends State<AppMainPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const AppBottomNavigation(),
+      bottomNavigationBar: AppBottomNavigation(items: AppNavigationMenu.items),
     );
   }
 }
