@@ -3,5 +3,10 @@
     "podcast": "Podcast",
     "search": "Tìm kiếm",
     "notification": "Thông báo",
-    "personal": "Cá nhân"
+    "personal": "Cá nhân",
+    "sign_in_hint": "👋 Đăng nhập giúp bạn lưu lại sở thích đọc tin và khám phá thêm nhiều tin hay!",
+    "sign_in": "Đăng nhập",
+    "settings": "Thiết lập",
+    "followed_articles": "Danh sách đang theo dõi",
+    "read_history": "Lịch sử bài đã đọc"
 }

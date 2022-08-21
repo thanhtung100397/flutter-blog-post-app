@@ -3,5 +3,10 @@
     "podcast": "Podcast",
     "search": "Search",
     "notification": "Notification",
-    "personal": "Personal"
+    "personal": "Personal",
+    "sign_in_hint": "👋 Signing in helps you save your reading preferences and discover more great news!",
+    "sign_in": "Sign in",
+    "settings": "Settings",
+    "followed_articles": "Followed articles",
+    "read_history": "Read history"
 }

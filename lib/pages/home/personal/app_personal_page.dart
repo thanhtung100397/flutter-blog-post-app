@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
 
 class AppPersonalPage extends StatefulWidget {
@@ -10,15 +11,75 @@ class AppPersonalPage extends StatefulWidget {
 
 class _AppPersonalPageState extends State<AppPersonalPage> {
 
+  Widget personalInfoSection() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      color: AppColor.appMainBackground,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(AppLocalizations.of(context)!.sign_in_hint),
+          TextButton(
+            style: TextButton.styleFrom(
+              primary: Colors.white,
+              backgroundColor: AppColor.appPrimary
+            ),
+            onPressed: () {},
+            child: Text(
+                AppLocalizations.of(context)!.sign_in,
+                style: TextStyle(color: AppColor.appTextAccent)
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget settingSection() {
+    return Container(
+        color: AppColor.appMainBackground,
+        child: ListTile(
+          leading: const Icon(Icons.settings),
+          title: Text(AppLocalizations.of(context)!.settings),
+          trailing: const Icon(Icons.keyboard_arrow_right),
+          onTap: () {},
+        ));
+  }
+
+  Widget otherSection() {
+    return Container(
+        color: AppColor.appMainBackground,
+        child: Column(
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.list),
+              title: Text(AppLocalizations.of(context)!.followed_articles),
+              trailing: const Icon(Icons.keyboard_arrow_right),
+            ),
+            ListTile(
+              leading: const Icon(Icons.history),
+              title: Text(AppLocalizations.of(context)!.read_history),
+              trailing: const Icon(Icons.keyboard_arrow_right),
+            )
+          ],
+        )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.appMainBackground,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text('Personal page')
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.personal)),
+      body: Container(
+        color: AppColor.appSecondaryBackground,
+        child: Wrap(
+          direction: Axis.horizontal,
+          runSpacing: 5,
+          children: <Widget>[
+            personalInfoSection(),
+            settingSection(),
+            otherSection()
           ],
         ),
       ),

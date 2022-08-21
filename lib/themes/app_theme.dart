@@ -15,6 +15,7 @@ class AppColor {
   static Color appPrimaryDark = Colors.blue[700]!;
   static Color appSecondary = Colors.white;
   static Color appMainBackground = Colors.white;
+  static Color appSecondaryBackground = Colors.grey[300]!;
   static Color appTextAccent = Colors.white;
   static Color disabled = Colors.grey[400]!;
 }
