@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:news_feed_app/pages/app_main_page.dart';
+import 'package:news_feed_app/routes/app_route.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
 
 void main() {
@@ -27,7 +27,8 @@ class App extends StatelessWidget {
         Locale('en', ''),
         Locale('vi', ''),
       ],
-      home: const AppMainPage(),
+      initialRoute: AppRoute.initialRoute,
+      routes: AppRoute.routes
     );
   }
 }
