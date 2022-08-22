@@ -13,7 +13,7 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
   Widget personalInfoSection() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(15, 12, 15, 8),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 6),
       color: AppColor.appMainBackground,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,12 +51,12 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
         child: Column(
           children: <Widget>[
             ListTile(
-              leading: const Icon(Icons.list),
+              leading: const Icon(Icons.view_list),
               title: Text(AppLocalizations.of(context)!.followed_articles),
               trailing: const Icon(Icons.keyboard_arrow_right),
             ),
             ListTile(
-              leading: const Icon(Icons.history),
+              leading: const Icon(Icons.work_history),
               title: Text(AppLocalizations.of(context)!.read_history),
               trailing: const Icon(Icons.keyboard_arrow_right),
             ),
