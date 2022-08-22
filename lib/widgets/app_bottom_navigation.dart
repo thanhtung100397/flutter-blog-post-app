@@ -93,14 +93,14 @@ class _NavigationItemWidgetState extends State<NavigationItemWidget> {
 
   Widget createLabelWidget() {
     return Container(
-        margin: const EdgeInsets.only(top: 2),
+        margin: const EdgeInsets.fromLTRB(0, 2, 0, 10),
         child: Text(widget.label!, style: textStyle));
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         Icon(widget.icon, color: AppColor.appTextAccent),
         if (shouldShowLabel()) createLabelWidget()
