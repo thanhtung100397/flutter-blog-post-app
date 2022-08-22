@@ -2,12 +2,12 @@ name: App workflow
 on:
   push:
     branches:
-      - 'main'
+      - '**'
 jobs:
   dockerize_production:
     name: Dockerize production
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
 
@@ -36,7 +36,7 @@ jobs:
     name: Deploy production
     runs-on: ubuntu-latest
     needs: [dockerize_production]
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
 
