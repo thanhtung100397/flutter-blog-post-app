@@ -13,14 +13,14 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
   Widget personalInfoSection() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       color: AppColor.appMainBackground,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(AppLocalizations.of(context)!.sign_in_hint),
           Container(
-              margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              margin: const EdgeInsets.only(top: 10),
               child: TextButton(
                 style: TextButton.styleFrom(
                     primary: Colors.white,
