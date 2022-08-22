@@ -2,7 +2,7 @@ name: App workflow
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
 jobs:
   dockerize_production:
     name: Dockerize production
