@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:news_feed_app/routes/app_route.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
 
 class AppPersonalPage extends StatefulWidget {
@@ -25,7 +26,12 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
                 style: TextButton.styleFrom(
                     primary: Colors.white,
                     backgroundColor: AppColor.appPrimary),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: AppRoute.routes['/login']!),
+                  );
+                },
                 child: Text(AppLocalizations.of(context)!.sign_in,
                     style: TextStyle(color: AppColor.appTextAccent)),
               )),
