@@ -54,7 +54,7 @@ class _AppBottomNavigationWidgetState extends State<AppBottomNavigationWidget> {
       index: widget.selectedIndex,
       animationDuration: widget.animationDuration,
       animationCurve: widget.animationCurve,
-      color: AppColor.appPrimary,
+      color: AppColor.appPrimaryLight,
       buttonBackgroundColor: AppColor.appPrimaryLight,
       backgroundColor: AppColor.appMainBackground,
       onTap: widget.onItemChanged,
