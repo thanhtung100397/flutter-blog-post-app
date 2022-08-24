@@ -22,10 +22,7 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
           Text(AppLocalizations.of(context)!.sign_in_hint),
           Container(
               margin: const EdgeInsets.only(top: 8),
-              child: TextButton(
-                style: TextButton.styleFrom(
-                    primary: Colors.white,
-                    backgroundColor: AppColor.appPrimary),
+              child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,

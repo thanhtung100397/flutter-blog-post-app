@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -13,11 +14,17 @@ class _AppLoginPageState extends State<AppLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.appMainBackground,
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.login)),
-      body: Column(
-        children: const [],
-      ),
-    );
+        backgroundColor: AppColor.appMainBackground,
+        appBar: AppBar(title: Text(AppLocalizations.of(context)!.login)),
+        body: Align(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SignInButton(Buttons.GoogleDark,
+                text: AppLocalizations.of(context)!.login_google,
+                onPressed: () {}),
+
+          ],
+        )));
   }
 }
