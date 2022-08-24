@@ -44,7 +44,12 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
           leading: const Icon(Icons.settings),
           title: Text(AppLocalizations.of(context)!.settings),
           trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: AppRoute.routes['/setting']!),
+            );
+          },
         ));
   }
 
