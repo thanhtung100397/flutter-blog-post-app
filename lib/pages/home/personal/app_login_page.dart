@@ -41,7 +41,11 @@ class _AppLoginPageState extends State<AppLoginPage> {
           children: [
             SignInButton(Buttons.GoogleDark,
                 text: AppLocalizations.of(context)!.login_google,
-                onPressed: signInWithGoogle),
+                onPressed: () async {
+              await signInWithGoogle();
+              if (!mounted) return;
+              Navigator.pop(context);
+            }),
           ],
         )));
   }
