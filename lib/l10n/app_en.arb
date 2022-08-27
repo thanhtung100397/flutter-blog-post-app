@@ -15,5 +15,7 @@
     "liked_posts": "Liked posts",
     "send_feedbacks": "Send feedbacks",
     "view_personal_info": "View personal info",
-    "logout": "Logout"
+    "logout": "Logout",
+    "logout_modal_title": "Logout",
+    "logout_modal_content": "Are you sure you want to logout?"
 }

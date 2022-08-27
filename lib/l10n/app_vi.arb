@@ -15,5 +15,7 @@
     "liked_posts": "Bài đã thích",
     "send_feedbacks": "Gửi phản hồi",
     "view_personal_info": "Xem thông tin cá nhân",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "logout_modal_title": "Đăng xuất",
+    "logout_modal_content": "Bạn có muốn đăng xuất không?"
 }

@@ -14,6 +14,32 @@ class AppPersonalPage extends StatefulWidget {
 }
 
 class _AppPersonalPageState extends State<AppPersonalPage> {
+  void openLogoutModal(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context)!.logout_modal_title),
+            content: Text(AppLocalizations.of(context)!.logout_modal_content),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('BỎ QUA'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('ĐỒNG Ý'),
+              ),
+            ],
+          );
+        });
+  }
+
   Widget personalInfoSection() {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
@@ -112,10 +138,21 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
               title: Text(AppLocalizations.of(context)!.send_feedbacks),
               trailing: const Icon(Icons.keyboard_arrow_right),
             ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: Text(AppLocalizations.of(context)!.logout),
-              onTap: FirebaseAuth.instance.signOut,
+            StreamBuilder<User?>(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                User? user = snapshot.data;
+                if (user != null) {
+                  return ListTile(
+                    leading: const Icon(Icons.logout),
+                    title: Text(AppLocalizations.of(context)!.logout),
+                    onTap: () {
+                      openLogoutModal(context);
+                    },
+                  );
+                }
+                return Container();
+              },
             )
           ],
         ));
