@@ -75,7 +75,7 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
     return Container(
         color: AppColor.appMainBackground,
         child: ListTile(
-          leading: const Icon(Icons.settings),
+          leading: const Icon(Icons.settings_outlined),
           title: Text(AppLocalizations.of(context)!.settings),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () {
@@ -93,22 +93,22 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
         child: Column(
           children: <Widget>[
             ListTile(
-              leading: const Icon(Icons.view_list),
+              leading: const Icon(Icons.featured_play_list_outlined),
               title: Text(AppLocalizations.of(context)!.followed_articles),
               trailing: const Icon(Icons.keyboard_arrow_right),
             ),
             ListTile(
-              leading: const Icon(Icons.work_history),
+              leading: const Icon(Icons.work_history_outlined),
               title: Text(AppLocalizations.of(context)!.read_history),
               trailing: const Icon(Icons.keyboard_arrow_right),
             ),
             ListTile(
-              leading: const Icon(Icons.favorite),
+              leading: const Icon(Icons.favorite_outline),
               title: Text(AppLocalizations.of(context)!.liked_posts),
               trailing: const Icon(Icons.keyboard_arrow_right),
             ),
             ListTile(
-              leading: const Icon(Icons.feedback),
+              leading: const Icon(Icons.feedback_outlined),
               title: Text(AppLocalizations.of(context)!.send_feedbacks),
               trailing: const Icon(Icons.keyboard_arrow_right),
             ),
