@@ -15,7 +15,10 @@ class AppLoginPage extends StatefulWidget {
 class _AppLoginPageState extends State<AppLoginPage> {
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
-    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    GoogleSignInAccount? googleUser = await GoogleSignIn(
+      clientId:
+          "1029674613958-11p79r4ov0uni4bkua7r0frqji69u1k0.apps.googleusercontent.com",
+    ).signIn();
 
     // Obtain the auth details from the request
     GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
