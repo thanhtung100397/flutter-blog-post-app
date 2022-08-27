@@ -18,9 +18,7 @@ Future<void> main() async {
           messagingSenderId: "1029674613958",
           appId: "1:1029674613958:web:5a2a93026aa1d035756bc7"),
     );
-  } catch (e) {
-    Firebase.initializeApp();
-  }
+  } catch (e) {}
   runApp(const App());
 }
 
