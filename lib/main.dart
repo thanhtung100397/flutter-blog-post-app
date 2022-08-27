@@ -6,18 +6,21 @@ import 'package:news_feed_app/routes/app_route.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    // Replace with actual values
-    options: const FirebaseOptions(
-        apiKey: "AIzaSyAXJuKbNCppyJmkMnJza_R3uPwCn89tsr8",
-        authDomain: "news-feed-e767b.firebaseapp.com",
-        projectId: "news-feed-e767b",
-        storageBucket: "news-feed-e767b.appspot.com",
-        messagingSenderId: "1029674613958",
-        appId: "1:1029674613958:web:5a2a93026aa1d035756bc7"),
-  );
+  try {
+    await Firebase.initializeApp(
+      // Replace with actual values
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyAXJuKbNCppyJmkMnJza_R3uPwCn89tsr8",
+          authDomain: "news-feed-e767b.firebaseapp.com",
+          projectId: "news-feed-e767b",
+          storageBucket: "news-feed-e767b.appspot.com",
+          messagingSenderId: "1029674613958",
+          appId: "1:1029674613958:web:5a2a93026aa1d035756bc7"),
+    );
+  } catch (e) {
+    Firebase.initializeApp();
+  }
   runApp(const App());
 }
 
