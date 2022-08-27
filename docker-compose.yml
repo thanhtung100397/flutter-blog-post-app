@@ -3,5 +3,5 @@ services:
   app:
     image: adn97/news-feed-app:${image_tag}
     ports:
-      - "8097:80"
+      - "5000:80"
     restart: on-failure
