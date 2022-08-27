@@ -111,6 +111,11 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
               leading: const Icon(Icons.feedback),
               title: Text(AppLocalizations.of(context)!.send_feedbacks),
               trailing: const Icon(Icons.keyboard_arrow_right),
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: Text(AppLocalizations.of(context)!.logout),
+              onTap: FirebaseAuth.instance.signOut,
             )
           ],
         ));

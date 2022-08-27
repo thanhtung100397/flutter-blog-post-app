@@ -14,5 +14,6 @@
     "read_history": "Lịch sử bài đã đọc",
     "liked_posts": "Bài đã thích",
     "send_feedbacks": "Gửi phản hồi",
-    "view_personal_info": "Xem thông tin cá nhân"
+    "view_personal_info": "Xem thông tin cá nhân",
+    "logout": "Đăng xuất"
 }
