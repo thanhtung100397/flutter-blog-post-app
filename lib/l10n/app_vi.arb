@@ -17,5 +17,7 @@
     "view_personal_info": "Xem thông tin cá nhân",
     "logout": "Đăng xuất",
     "logout_modal_title": "Đăng xuất",
-    "logout_modal_content": "Bạn có muốn đăng xuất không?"
+    "logout_modal_content": "Bạn có muốn đăng xuất không?",
+    "confirm": "ĐỒNG Ý",
+    "cancel": "BỎ QUA"
 }

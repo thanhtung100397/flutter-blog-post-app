@@ -17,5 +17,7 @@
     "view_personal_info": "View personal info",
     "logout": "Logout",
     "logout_modal_title": "Logout",
-    "logout_modal_content": "Are you sure you want to logout?"
+    "logout_modal_content": "Are you sure you want to logout?",
+    "confirm": "CONFIRM",
+    "cancel": "CANCEL"
 }

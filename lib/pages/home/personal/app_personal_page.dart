@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -26,14 +24,14 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('BỎ QUA'),
+                child: Text(AppLocalizations.of(context)!.cancel),
               ),
               TextButton(
                 onPressed: () async {
                   FirebaseAuth.instance.signOut();
                   Navigator.of(context).pop();
                 },
-                child: const Text('ĐỒNG Ý'),
+                child: Text(AppLocalizations.of(context)!.confirm),
               ),
             ],
           );
@@ -146,6 +144,7 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
                   return ListTile(
                     leading: const Icon(Icons.logout),
                     title: Text(AppLocalizations.of(context)!.logout),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
                     onTap: () {
                       openLogoutModal(context);
                     },
