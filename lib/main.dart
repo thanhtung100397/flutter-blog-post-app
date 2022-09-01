@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +31,8 @@ Future<void> main() async {
           ApiUtils.buildUri(path: "/auth/login-firebase"),
           body: json.encode({'idToken': idToken}));
       if (response.statusCode != 200) {
-        log("Error when calling api to login ${response.statusCode} ${response.body}");
+        throw Exception(
+            "Error when calling api to login ${response.statusCode} ${response.body}");
       }
     }
   });

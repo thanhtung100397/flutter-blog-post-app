@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,26 +14,45 @@ class AppSettingPage extends StatefulWidget {
 }
 
 class _AppSettingPage extends State<AppSettingPage> {
-  late Future<dynamic> userSettings;
+  late Future<Map<String, dynamic>> futureUserSettings;
 
-  Future<Map<String, dynamic>?> fetchUserSettings() async {
+  Future<Map<String, dynamic>> getUserSettings() async {
     final response = await http.get(ApiUtils.buildUri(path: "/settings/"),
         headers: {
           'authorization': await FirebaseAuth.instance.currentUser!.getIdToken()
         });
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      return data;
+      final userSettings = jsonDecode(response.body);
+      return userSettings;
     } else {
-      log("Error when calling API to get user settings ${response.statusCode} ${response.body}");
+      throw Exception(
+          "Error when calling API to get user settings ${response.statusCode} ${response.body}");
     }
-    return null;
+  }
+
+  Future updateUserSettings({bool? enableNotification}) async {
+    Map<String, dynamic> updateUserSettings = {};
+    if (enableNotification != null) {
+      updateUserSettings.update(
+          'enableNotification', (value) => enableNotification,
+          ifAbsent: () => enableNotification);
+    }
+    final response = await http.put(ApiUtils.buildUri(path: "/settings/"),
+        body: json.encode(updateUserSettings),
+        headers: {
+          'authorization': await FirebaseAuth.instance.currentUser!.getIdToken()
+        });
+    if (response.statusCode == 200) {
+    } else {
+      throw Exception(
+          "Error when calling API to get user settings ${response.statusCode} ${response.body}");
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    userSettings = fetchUserSettings();
+    futureUserSettings = getUserSettings();
   }
 
   @override
@@ -44,20 +62,25 @@ class _AppSettingPage extends State<AppSettingPage> {
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.setting)),
       body: ListView(
         children: <Widget>[
-          FutureBuilder<Map<String, dynamic>>(builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              print(snapshot.toString());
-              return SwitchListTile(
-                value: true,
-                title: Text("Nhận thông báo đẩy"),
-                subtitle: Text("Giúp bạn luôn cập nhật các bài viết mới nhất"),
-                onChanged: (bool value) {
-                  print(value);
-                },
-              );
-            }
-            return Container();
-          })
+          FutureBuilder<Map<String, dynamic>>(
+              future: futureUserSettings,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return SwitchListTile(
+                    value: snapshot.data!["enableNotification"],
+                    title: const Text("Nhận thông báo đẩy"),
+                    subtitle: const Text(
+                        "Giúp bạn luôn cập nhật các bài viết mới nhất"),
+                    onChanged: (bool value) {
+                      updateUserSettings(enableNotification: value)
+                          .then((_) => setState(() {
+                                futureUserSettings = getUserSettings();
+                              }));
+                    },
+                  );
+                }
+                return Container();
+              })
         ],
       ),
     );
