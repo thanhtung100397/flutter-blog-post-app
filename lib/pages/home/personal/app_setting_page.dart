@@ -45,7 +45,7 @@ class _AppSettingPage extends State<AppSettingPage> {
     if (response.statusCode == 200) {
     } else {
       throw Exception(
-          "Error when calling API to get user settings ${response.statusCode} ${response.body}");
+          "Error when calling API to update user settings ${response.statusCode} ${response.body}");
     }
   }
 
