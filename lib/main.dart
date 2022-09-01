@@ -32,7 +32,7 @@ Future<void> main() async {
           ApiUtils.buildUri(path: "/auth/login-firebase"),
           body: json.encode({'idToken': idToken}));
       if (response.statusCode != 200) {
-        log("status: ${response.statusCode} response: ${response.body}");
+        log("Error when calling api to login ${response.statusCode} ${response.body}");
       }
     }
   });
