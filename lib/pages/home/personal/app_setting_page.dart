@@ -71,11 +71,11 @@ class _AppSettingPage extends State<AppSettingPage> {
                     title: const Text("Nhận thông báo đẩy"),
                     subtitle: const Text(
                         "Giúp bạn luôn cập nhật các bài viết mới nhất"),
-                    onChanged: (bool value) {
-                      updateUserSettings(enableNotification: value)
-                          .then((_) => setState(() {
-                                futureUserSettings = getUserSettings();
-                              }));
+                    onChanged: (bool value) async {
+                      await updateUserSettings(enableNotification: value);
+                      setState(() {
+                        futureUserSettings = getUserSettings();
+                      });
                     },
                   );
                 }
