@@ -65,21 +65,21 @@ class _AppSettingPage extends State<AppSettingPage> {
           FutureBuilder<Map<String, dynamic>>(
               future: futureUserSettings,
               builder: (context, snapshot) {
+                bool enableNotification = false;
                 if (snapshot.hasData) {
-                  return SwitchListTile(
-                    value: snapshot.data!["enableNotification"],
-                    title: const Text("Nhận thông báo đẩy"),
-                    subtitle: const Text(
-                        "Giúp bạn luôn cập nhật các bài viết mới nhất"),
-                    onChanged: (bool value) async {
-                      await updateUserSettings(enableNotification: value);
-                      setState(() {
-                        futureUserSettings = getUserSettings();
-                      });
-                    },
-                  );
+                  enableNotification = snapshot.data!["enableNotification"];
                 }
-                return Container();
+                return SwitchListTile(
+                  value: enableNotification,
+                  title: const Text("Nhận thông báo đẩy"),
+                  subtitle: const Text("Giúp bạn luôn cập nhật các bài viết mới nhất"),
+                  onChanged: (bool value) async {
+                    await updateUserSettings(enableNotification: value);
+                    setState(() {
+                      futureUserSettings = getUserSettings();
+                    });
+                  },
+                );
               })
         ],
       ),
