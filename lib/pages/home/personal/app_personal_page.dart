@@ -96,27 +96,19 @@ class _AppPersonalPageState extends State<AppPersonalPage> {
   }
 
   Widget settingSection() {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Container();
-        }
-        return Container(
-            color: AppColor.appMainBackground,
-            child: ListTile(
-              leading: const Icon(Icons.settings_outlined),
-              title: Text(AppLocalizations.of(context)!.settings),
-              trailing: const Icon(Icons.keyboard_arrow_right),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: AppRoute.routes['/setting']!),
-                );
-              },
-            ));
-      },
-    );
+    return Container(
+        color: AppColor.appMainBackground,
+        child: ListTile(
+          leading: const Icon(Icons.settings_outlined),
+          title: Text(AppLocalizations.of(context)!.settings),
+          trailing: const Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: AppRoute.routes['/setting']!),
+            );
+          },
+        ));
   }
 
   Widget otherSection() {
