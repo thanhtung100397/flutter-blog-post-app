@@ -60,29 +60,32 @@ class _AppSettingPage extends State<AppSettingPage> {
     return Scaffold(
       backgroundColor: AppColor.appMainBackground,
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.setting)),
-      body: ListView(
-        children: <Widget>[
-          FutureBuilder<Map<String, dynamic>>(
-              future: futureUserSettings,
-              builder: (context, snapshot) {
-                bool enableNotification = false;
-                if (snapshot.hasData) {
-                  enableNotification = snapshot.data!["enableNotification"];
-                }
-                return SwitchListTile(
-                  value: enableNotification,
-                  title: const Text("Nhận thông báo đẩy"),
-                  subtitle: const Text("Giúp bạn luôn cập nhật các bài viết mới nhất"),
-                  onChanged: (bool value) async {
-                    await updateUserSettings(enableNotification: value);
-                    setState(() {
-                      futureUserSettings = getUserSettings();
-                    });
-                  },
-                );
-              })
-        ],
-      ),
+      body: Container(
+          padding: const EdgeInsets.only(top: 14),
+          child: ListView(
+            children: <Widget>[
+              FutureBuilder<Map<String, dynamic>>(
+                  future: futureUserSettings,
+                  builder: (context, snapshot) {
+                    bool enableNotification = false;
+                    if (snapshot.hasData) {
+                      enableNotification = snapshot.data!["enableNotification"];
+                    }
+                    return SwitchListTile(
+                      value: enableNotification,
+                      title: const Text("Nhận thông báo đẩy"),
+                      subtitle: const Text(
+                          "Giúp bạn luôn cập nhật các bài viết mới nhất"),
+                      onChanged: (bool value) async {
+                        await updateUserSettings(enableNotification: value);
+                        setState(() {
+                          futureUserSettings = getUserSettings();
+                        });
+                      },
+                    );
+                  })
+            ],
+          )),
     );
   }
 }
