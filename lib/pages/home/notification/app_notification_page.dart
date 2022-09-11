@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:news_feed_app/themes/app_theme.dart';
 import 'package:news_feed_app/utils/api_utils.dart';
 import 'package:http/http.dart' as http;
@@ -31,11 +32,16 @@ class AppNotificationPage extends StatefulWidget {
 class _AppNotificationPageState extends State<AppNotificationPage> {
   late Future<List<Notification>> futureNotifications;
 
-  Future<List<Notification>> listNotifications() async {
+  static const pageSize = 50;
+
+  final PagingController<int, Notification> pagingController =
+      PagingController(firstPageKey: 1);
+
+  Future<List<Notification>> listNotifications(int pageNum) async {
     final response = await http.get(
         ApiUtils.buildUri(
             path: "/notifications/",
-            queryParameters: {"pageNum": 1, "pageSize": 50}),
+            queryParameters: {"pageNum": pageNum, "pageSize": pageSize}),
         headers: {
           'authorization': await FirebaseAuth.instance.currentUser!.getIdToken()
         });
@@ -48,6 +54,20 @@ class _AppNotificationPageState extends State<AppNotificationPage> {
     }
     throw Exception(
         "Error when calling API to list notifications ${response.statusCode} ${response.body}");
+  }
+
+  Future<void> fetchPage(int pageNum) async {
+    try {
+      final newItems = await listNotifications(pageNum);
+      final isLastPage = newItems.length < pageSize;
+      if (isLastPage) {
+        pagingController.appendLastPage(newItems);
+      } else {
+        pagingController.appendPage(newItems, pageNum + 1);
+      }
+    } catch (error) {
+      pagingController.error = error;
+    }
   }
 
   Future markAsRead(String notificationId) async {
@@ -65,66 +85,49 @@ class _AppNotificationPageState extends State<AppNotificationPage> {
 
   @override
   void initState() {
+    pagingController.addPageRequestListener((pageNum) {
+      fetchPage(pageNum);
+    });
     super.initState();
-    futureNotifications = listNotifications();
   }
 
-  void refreshNotifications() {
-    setState(() {
-      futureNotifications = listNotifications();
-    });
+  @override
+  void dispose() {
+    pagingController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Thông báo")),
-      backgroundColor: AppColor.appMainBackground,
-      body: Container(
-        padding: const EdgeInsets.only(top: 14),
-        child: FutureBuilder<List<Notification>>(
-          future: futureNotifications,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final notifications = snapshot.data!;
-              return ListView(
-                children: notifications
-                    .map((notification) => Container(
-                        decoration: BoxDecoration(
-                            color: notification.markAsRead == false
-                                ? Colors.blue[50]
-                                : Colors.white),
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: ListTile(
-                          onTap: () async {
-                            await markAsRead(notification._id!);
-                            refreshNotifications();
-                          },
-                          leading: notification.imageUrl == null
-                              ? null
-                              : SizedBox(
-                                  height: 50,
-                                  width: 50,
-                                  child: Image.network(
-                                    notification.imageUrl!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                          title: Container(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: Text(notification.content ?? '')),
-                          subtitle: Text(notification.createdDate == null
-                              ? ''
-                              : notification.createdDate.toString()),
-                          trailing: const Icon(Icons.more_vert),
-                        )))
-                    .toList(),
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
+        appBar: AppBar(title: const Text("Thông báo")),
+        backgroundColor: AppColor.appMainBackground,
+        body: RefreshIndicator(
+          onRefresh: () async {
+            pagingController.refresh();
           },
-        ),
-      ),
-    );
+          child: PagedListView<int, Notification>(
+            pagingController: pagingController,
+            builderDelegate: PagedChildBuilderDelegate<Notification>(
+                itemBuilder: (context, notification, index) => Container(
+                    decoration: BoxDecoration(
+                        color: notification.markAsRead == false
+                            ? Colors.blue[50]
+                            : Colors.white),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: ListTile(
+                      onTap: () async {
+                        await markAsRead(notification._id!);
+                      },
+                      title: Container(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Text(notification.content ?? '')),
+                      subtitle: Text(notification.createdDate == null
+                          ? ''
+                          : notification.createdDate.toString()),
+                      trailing: const Icon(Icons.more_vert),
+                    ))),
+          ),
+        ));
   }
 }
