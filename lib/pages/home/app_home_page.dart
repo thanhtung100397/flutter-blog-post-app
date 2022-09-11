@@ -19,9 +19,6 @@ class _AppHomePageState extends State<AppHomePage> {
   PageController pagerController = PageController();
 
   Future<void> animatePagerToNewPage(int newPageIndex) async {
-    if (newPageIndex == currentPageIndex) {
-      return;
-    }
     Future<void> animateProgress = pagerController.animateToPage(
         newPageIndex,
         duration: animationDuration,
