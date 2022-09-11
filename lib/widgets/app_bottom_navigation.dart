@@ -17,8 +17,6 @@ class NavigationItem {
 class AppBottomNavigationWidget<T extends NavigationItem> extends StatefulWidget {
   final List<T> items;
   final int selectedIndex;
-  final Duration animationDuration;
-  final Curve animationCurve;
   final ValueChanged<int>? onItemChanged;
 
   const AppBottomNavigationWidget({
@@ -26,8 +24,6 @@ class AppBottomNavigationWidget<T extends NavigationItem> extends StatefulWidget
     required this.items,
     this.selectedIndex = 0,
     this.onItemChanged,
-    this.animationDuration = const Duration(milliseconds: 600),
-    this.animationCurve = Curves.easeOutCubic,
   }) : super(key: key);
 
   @override
